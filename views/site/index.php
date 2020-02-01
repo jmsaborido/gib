@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
+Yii::$app->response->redirect(['/juegos/index']);
 
 $this->title = 'My Yii Application';
 ?>

@@ -5,19 +5,8 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 $this->title = 'Lista de Juegos';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-<!--     id bigserial PRIMARY KEY,
-    Dia smallint,
-    Mes smallint,
-    year smallint,
-    nombre varchar(100),
-    Consola varchar(100),
-    Pasado boolean,
-    Genero varchar(100),
-    year_Debut smallint -->
-
 <div class="generos-index">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
