@@ -12,11 +12,8 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'dia')->textInput() ?>
+    <?= $form->field($model, 'fecha')->textInput() ?>
 
-    <?= $form->field($model, 'mes')->textInput() ?>
-
-    <?= $form->field($model, 'year')->textInput() ?>
 
     <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
 
@@ -29,7 +26,7 @@ use yii\bootstrap4\ActiveForm;
     <?= $form->field($model, 'year_debut')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

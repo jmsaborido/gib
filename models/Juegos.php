@@ -2,14 +2,10 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "juegos".
  *
- * @property int|null $dia
- * @property int|null $mes
- * @property int|null $year
+ * @property date|null $fecha
  * @property string|null $nombre
  * @property string|null $consola
  * @property bool|null $pasado
@@ -32,8 +28,8 @@ class Juegos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['dia', 'mes', 'year', 'year_debut'], 'default', 'value' => null],
-            [['dia', 'mes', 'year', 'year_debut'], 'integer'],
+            [['year_debut'], 'default', 'value' => null],
+            [['year_debut'], 'integer'],
             [['pasado'], 'boolean'],
             [['nombre', 'consola', 'genero'], 'string', 'max' => 100],
         ];
@@ -45,9 +41,7 @@ class Juegos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'dia' => 'Dia',
-            'mes' => 'Mes',
-            'year' => 'Año',
+            'fecha' => 'Fecha',
             'nombre' => 'Nombre',
             'consola' => 'Consola',
             'pasado' => 'Pasado',
@@ -55,13 +49,4 @@ class Juegos extends \yii\db\ActiveRecord
             'year_debut' => 'Año Debut',
         ];
     }
-
-    public function getDischargedLabel()
-    {
-        return $this->discharged ? 'Si' : 'No';
-    }
-    // public function getJuegos()
-    // {
-    //     return $this->hasMany(Juegos::className(), ['genero_id' => 'id'])->inverseOf('juego');
-    // }
 }

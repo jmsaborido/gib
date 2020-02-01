@@ -29,9 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'dia',
-            'mes',
-            'year',
+            'fecha',
             'nombre',
             'consola',
             'pasado:boolean',

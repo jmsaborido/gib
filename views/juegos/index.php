@@ -23,12 +23,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $juegosSearch,
         'columns' => [
-            'id',
-            'dia',
-            'mes',
+
             [
-                'attribute' => 'year',
-                'label' => 'Año',
+                'attribute' => 'fecha',
+                'format' => 'date',
             ],
             'nombre',
             'consola',

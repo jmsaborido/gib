@@ -5,10 +5,10 @@ use yii\bootstrap4\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Juegos */
 
-$this->title = 'Modificar juegos: ' . $model->id;
+$this->title = 'Modificar juegos: ' . $model->nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Juegos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Modificar';
 ?>
 <div class="juegos-update">
 

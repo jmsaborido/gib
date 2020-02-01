@@ -17,7 +17,7 @@ class JuegosSearch extends Juegos
     public function rules()
     {
         return [
-            [['id', 'dia', 'mes', 'year', 'year_debut'], 'integer'],
+            [['year_debut'], 'integer'],
             [['nombre', 'consola', 'genero'], 'safe'],
             [['pasado'], 'boolean'],
         ];
@@ -60,9 +60,7 @@ class JuegosSearch extends Juegos
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'dia' => $this->dia,
-            'mes' => $this->mes,
-            'year' => $this->year,
+            'fecha' => $this->fecha,
             'pasado' => $this->pasado,
             'year_debut' => $this->year_debut,
         ]);

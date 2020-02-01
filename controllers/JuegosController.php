@@ -81,7 +81,7 @@ class JuegosController extends Controller
     protected function findGenero($id)
     {
         if (($juego = Juegos::findOne($id)) === null) {
-            throw new NotFoundHttpException('No se ha encontrado el género.');
+            throw new NotFoundHttpException('No se ha encontrado el juego.');
         }
 
         return $juego;
