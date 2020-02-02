@@ -6,6 +6,8 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Juegos;
 
+use function Psy\debug;
+
 /**
  * JuegosSearch represents the model behind the search form of `app\models\Juegos`.
  */
@@ -17,11 +19,12 @@ class JuegosSearch extends Juegos
     public function rules()
     {
         return [
-            [['year_debut'], 'integer'],
-            [['nombre', 'consola', 'genero'], 'safe'],
+            [['id', 'consola_id', 'genero_id', 'year_debut'], 'integer'],
+            [['fecha', 'nombre', 'genero.denom', 'consola.denom'], 'safe'],
             [['pasado'], 'boolean'],
         ];
     }
+
 
     /**
      * {@inheritdoc}
@@ -41,19 +44,25 @@ class JuegosSearch extends Juegos
      */
     public function search($params)
     {
-        $query = Juegos::find();
-
-        // add conditions that should always apply here
-
+        $query = Juegos::find()->innerJoinWith(['consola c'])->innerJoinWith(['genero g']);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $dataProvider->sort->attributes['genero.denom'] = [
+            'asc' => ['g.denom' => SORT_ASC],
+            'desc' => ['g.denom' => SORT_DESC],
+        ];
+        $dataProvider->sort->attributes['consola.denom'] = [
+            'asc' => ['c.denom' => SORT_ASC],
+            'desc' => ['c.denom' => SORT_DESC],
+        ];
 
         $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
+            // Yii: debug($query->createCommand()->rawSql());
             return $dataProvider;
         }
 
@@ -61,13 +70,15 @@ class JuegosSearch extends Juegos
         $query->andFilterWhere([
             'id' => $this->id,
             'fecha' => $this->fecha,
+            'consola_id' => $this->getAttribute('consola.denom'),
             'pasado' => $this->pasado,
-            'year_debut' => $this->year_debut,
+            'genero_id' =>  $this->getAttribute('genero.denom'),
+
         ]);
 
         $query->andFilterWhere(['ilike', 'nombre', $this->nombre])
-            ->andFilterWhere(['ilike', 'consola', $this->consola])
-            ->andFilterWhere(['ilike', 'genero', $this->genero]);
+            ->andFilterWhere(['<', 'year_debut', $this->getAttribute('year_debut')]);
+
 
         return $dataProvider;
     }

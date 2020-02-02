@@ -2,6 +2,7 @@
 
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Juegos */
@@ -14,14 +15,13 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'fecha')->textInput() ?>
 
-
     <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'consola')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'consola_id')->dropDownList(ArrayHelper::map(\app\models\Consolas::find()->asArray()->all(), 'id', 'denom')) ?>
 
     <?= $form->field($model, 'pasado')->checkbox() ?>
 
-    <?= $form->field($model, 'genero')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'genero_id')->dropDownList(ArrayHelper::map(\app\models\Generos::find()->asArray()->all(), 'id', 'denom')) ?>
 
     <?= $form->field($model, 'year_debut')->textInput() ?>
 

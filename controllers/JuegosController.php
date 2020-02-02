@@ -37,7 +37,7 @@ class JuegosController extends Controller
 
     public function actionView($id)
     {
-        $model = $this->findGenero($id);
+        $model = $this->findJuego($id);
 
         return $this->render('view', [
             'model' => $model,
@@ -59,7 +59,7 @@ class JuegosController extends Controller
 
     public function actionUpdate($id)
     {
-        $model = $this->findGenero($id);
+        $model = $this->findJuego($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
@@ -72,13 +72,13 @@ class JuegosController extends Controller
 
     public function actionDelete($id)
     {
-        $model = $this->findGenero($id);
+        $model = $this->findJuego($id);
         $model->delete();
         Yii::$app->session->setFlash('success', 'Fila borrada con éxito.');
         return $this->redirect(['index']);
     }
 
-    protected function findGenero($id)
+    protected function findJuego($id)
     {
         if (($juego = Juegos::findOne($id)) === null) {
             throw new NotFoundHttpException('No se ha encontrado el juego.');

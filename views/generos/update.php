@@ -3,13 +3,14 @@
 use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Juegos */
+/* @var $model app\models\Generos */
 
-$this->title = 'Modificar juegos: ' . $model->nombre;
+$this->title = 'Update Generos: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Generos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Modificar';
+$this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="juegos-update">
+<div class="generos-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

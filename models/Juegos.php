@@ -2,15 +2,21 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the model class for table "juegos".
  *
- * @property date|null $fecha
- * @property string|null $nombre
- * @property string|null $consola
+ * @property int $id
+ * @property string|null $fecha
+ * @property string $nombre
+ * @property int $consola_id
  * @property bool|null $pasado
- * @property string|null $genero
+ * @property int $genero_id
  * @property int|null $year_debut
+ *
+ * @property Consolas $consola
+ * @property Generos $genero
  */
 class Juegos extends \yii\db\ActiveRecord
 {
@@ -28,25 +34,51 @@ class Juegos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['year_debut'], 'default', 'value' => null],
-            [['year_debut'], 'integer'],
+            [['fecha'], 'safe'],
+            [['fecha'], 'default', 'value' => date("d/M/y")],
+            [['nombre', 'consola_id', 'genero_id'], 'required'],
+            [['consola_id', 'genero_id', 'year_debut'], 'default', 'value' => null],
+            [['consola_id', 'genero_id', 'year_debut'], 'integer'],
             [['pasado'], 'boolean'],
-            [['nombre', 'consola', 'genero'], 'string', 'max' => 100],
+            [['nombre'], 'string', 'max' => 100],
+            [['consola_id'], 'exist', 'skipOnError' => true, 'targetClass' => Consolas::className(), 'targetAttribute' => ['consola_id' => 'id']],
+            [['genero_id'], 'exist', 'skipOnError' => true, 'targetClass' => Generos::className(), 'targetAttribute' => ['genero_id' => 'id']],
         ];
     }
 
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), ['genero.denom'], ['consola.denom']);
+    }
     /**
      * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'fecha' => 'Fecha',
             'nombre' => 'Nombre',
-            'consola' => 'Consola',
+            'consola_id' => 'Consola ID',
             'pasado' => 'Pasado',
-            'genero' => 'Genero',
+            'genero_id' => 'Genero ID',
             'year_debut' => 'Año Debut',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getConsola()
+    {
+        return $this->hasOne(Consolas::className(), ['id' => 'consola_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGenero()
+    {
+        return $this->hasOne(Generos::className(), ['id' => 'genero_id']);
     }
 }

@@ -11,18 +11,16 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'dia') ?>
-        <?= $form->field($model, 'mes') ?>
-        <?= $form->field($model, 'year') ?>
-        <?= $form->field($model, 'year_debut') ?>
-        <?= $form->field($model, 'pasado') ?>
-        <?= $form->field($model, 'nombre') ?>
-        <?= $form->field($model, 'consola') ?>
-        <?= $form->field($model, 'genero') ?>
-    
-        <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
-        </div>
+
+    <?= $form->field($model, 'pasado') ?>
+    <?= $form->field($model, 'nombre') ?>
+    <?= $form->field($model, 'consola.denom') ?>
+    <?= $form->field($model, 'genero.denom') ?>
+    <?= $form->field($model, 'year_debut') ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
+    </div>
     <?php ActiveForm::end(); ?>
 
 </div><!-- Juegos -->

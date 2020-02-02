@@ -3,6 +3,7 @@
 use yii\bootstrap4\Html;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 $this->title = 'Lista de Juegos';
 // $this->params['breadcrumbs'][] = $this->title;
@@ -14,20 +15,29 @@ $this->title = 'Lista de Juegos';
         'columns' => [
 
             [
+                'attribute' => 'id',
+                'label' => 'Numero',
+            ],
+            [
                 'attribute' => 'fecha',
                 'format' => 'date',
             ],
             'nombre',
-            'consola',
+            [
+                'attribute' => 'consola.denom',
+                'label' => 'Consola',
+                'filter' => ArrayHelper::map(\app\models\Consolas::find()->asArray()->all(), 'id', 'denom'),
+            ],
             [
                 'attribute' => 'pasado',
                 'format' => 'boolean',
             ],
-            'genero',
             [
-                'attribute' => 'year_debut',
-                'label' => 'Año debut',
+                'attribute' => 'genero.denom',
+                'label' => 'Genero',
+                'filter' => ArrayHelper::map(\app\models\Generos::find()->asArray()->all(), 'id', 'denom'),
             ],
+            'year_debut',
             ['class' => ActionColumn::class],
         ],
     ]) ?>
