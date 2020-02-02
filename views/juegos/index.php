@@ -16,17 +16,21 @@ $this->title = 'Lista de Juegos';
 
             [
                 'attribute' => 'id',
-                'label' => 'Numero',
+                'label' => '#',
+                'headerOptions' => ['style' => 'width:0.0000000000000000000000000000000005%']
             ],
             [
                 'attribute' => 'fecha',
                 'format' => 'date',
+                'headerOptions' => ['style' => 'width:12%']
             ],
             'nombre',
             [
                 'attribute' => 'consola.denom',
                 'label' => 'Consola',
                 'filter' => ArrayHelper::map(\app\models\Consolas::find()->asArray()->all(), 'id', 'denom'),
+                'headerOptions' => ['style' => 'width:0.0000000000000000000000000000000005%']
+
             ],
             [
                 'attribute' => 'pasado',
@@ -36,8 +40,12 @@ $this->title = 'Lista de Juegos';
                 'attribute' => 'genero.denom',
                 'label' => 'Genero',
                 'filter' => ArrayHelper::map(\app\models\Generos::find()->asArray()->all(), 'id', 'denom'),
+                'headerOptions' => ['style' => 'width:0.0000000000000000000000000000000005%']
             ],
-            'year_debut',
+            [
+                'attribute' => 'year_debut',
+                'headerOptions' => ['style' => 'width:0.0000000000000000000000000000000005%']
+            ],
             ['class' => ActionColumn::class],
         ],
     ]) ?>

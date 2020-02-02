@@ -43,7 +43,9 @@ AppAsset::register($this);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav'],
             'items' => [
-                ['label' => 'Home', 'url' => ['/site/index']],
+                ['label' => 'Juegos', 'url' => ['/site/index']],
+                ['label' => 'Generos', 'url' => ['/generos/index']],
+                ['label' => 'Consolas', 'url' => ['/consolas/index']],
                 Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
