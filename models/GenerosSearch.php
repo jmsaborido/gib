@@ -17,7 +17,7 @@ class GenerosSearch extends Generos
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'total'], 'integer'],
             [['denom', 'created_at'], 'safe'],
         ];
     }
@@ -40,13 +40,17 @@ class GenerosSearch extends Generos
      */
     public function search($params)
     {
-        $query = Generos::find();
+        $query = Generos::findWithTotal();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $dataProvider->sort->attributes['total'] = [
+            'asc' => ['COUNT(j.id)' => SORT_ASC],
+            'desc' => ['COUNT(j.id)' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -63,6 +67,7 @@ class GenerosSearch extends Generos
         ]);
 
         $query->andFilterWhere(['ilike', 'denom', $this->denom]);
+        $query->andFilterHaving(['COUNT(j.id)' => $this->total]);
 
         return $dataProvider;
     }

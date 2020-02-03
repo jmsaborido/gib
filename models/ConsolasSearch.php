@@ -17,7 +17,7 @@ class ConsolasSearch extends Consolas
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'total'], 'integer'],
             [['denom', 'created_at'], 'safe'],
         ];
     }
@@ -40,13 +40,17 @@ class ConsolasSearch extends Consolas
      */
     public function search($params)
     {
-        $query = Consolas::find();
+        $query = Consolas::findWithTotal();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $dataProvider->sort->attributes['total'] = [
+            'asc' => ['COUNT(j.id)' => SORT_ASC],
+            'desc' => ['COUNT(j.id)' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -63,6 +67,8 @@ class ConsolasSearch extends Consolas
         ]);
 
         $query->andFilterWhere(['ilike', 'denom', $this->denom]);
+        $query->andFilterHaving(['COUNT(j.id)' => $this->total]);
+
 
         return $dataProvider;
     }

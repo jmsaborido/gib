@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             'denom',
+            'total',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

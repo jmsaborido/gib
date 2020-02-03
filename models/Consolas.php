@@ -15,6 +15,8 @@ use Yii;
  */
 class Consolas extends \yii\db\ActiveRecord
 {
+    private $_total = null;
+
     /**
      * {@inheritdoc}
      */
@@ -44,8 +46,20 @@ class Consolas extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'denom' => 'Denom',
-            'created_at' => 'Created At',
+            'created_at' => 'Añadido en',
         ];
+    }
+    public function setTotal($total)
+    {
+        $this->_total = $total;
+    }
+
+    public function getTotal()
+    {
+        if ($this->_total === null && !$this->isNewRecord) {
+            $this->setTotal($this->getJuegos()->count());
+        }
+        return $this->_total;
     }
 
     /**
@@ -54,5 +68,12 @@ class Consolas extends \yii\db\ActiveRecord
     public function getJuegos()
     {
         return $this->hasMany(Juegos::className(), ['consola_id' => 'id']);
+    }
+    public static function findWithTotal()
+    {
+        return static::find()
+            ->select(['consolas.*', 'COUNT(j.id) AS total'])
+            ->joinWith('juegos j', false)
+            ->groupBy('consolas.id');
     }
 }

@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
 
             'denom',
-
+            'total',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

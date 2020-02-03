@@ -15,6 +15,7 @@ use Yii;
  */
 class Generos extends \yii\db\ActiveRecord
 {
+    private $_total = null;
     /**
      * {@inheritdoc}
      */
@@ -48,11 +49,31 @@ class Generos extends \yii\db\ActiveRecord
         ];
     }
 
+    public function setTotal($total)
+    {
+        $this->_total = $total;
+    }
+
+    public function getTotal()
+    {
+        if ($this->_total === null && !$this->isNewRecord) {
+            $this->setTotal($this->getJuegos()->count());
+        }
+        return $this->_total;
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getJuegos()
     {
         return $this->hasMany(Juegos::className(), ['genero_id' => 'id']);
+    }
+    public static function findWithTotal()
+    {
+        return static::find()
+            ->select(['generos.*', 'COUNT(j.id) AS total'])
+            ->joinWith('juegos j', false)
+            ->groupBy('generos.id');
     }
 }
