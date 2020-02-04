@@ -26,7 +26,9 @@ class JuegosController extends Controller
     public function actionIndex()
     {
         $JuegosSearch = new JuegosSearch();
-        $model = new Juegos();
+        Yii::$app->view->params['totalG'] = $JuegosSearch->getAllGeneros();
+        Yii::$app->view->params['totalC'] = $JuegosSearch->getAllConsolas();
+
         $dataProvider = $JuegosSearch->search(Yii::$app->request->queryParams);
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -46,6 +48,8 @@ class JuegosController extends Controller
     public function actionCreate()
     {
         $model = new Juegos();
+        Yii::$app->view->params['totalG'] = $model->getAllGeneros();
+        Yii::$app->view->params['totalC'] = $model->getAllConsolas();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
@@ -59,6 +63,8 @@ class JuegosController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findJuego($id);
+        Yii::$app->view->params['totalG'] = $model->getAllGeneros();
+        Yii::$app->view->params['totalC'] = $model->getAllConsolas();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
