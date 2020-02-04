@@ -28,7 +28,7 @@ $this->title = 'Lista de Juegos';
             [
                 'attribute' => 'consola.denom',
                 'label' => 'Consola',
-                'filter' => Yii::$app->view->params['totalC'],
+                'filter' => $totalC,
             ],
             [
                 'attribute' => 'pasado',
@@ -37,7 +37,7 @@ $this->title = 'Lista de Juegos';
             [
                 'attribute' => 'genero.denom',
                 'label' => 'Genero',
-                'filter' => Yii::$app->view->params['totalG'],
+                'filter' => $totalG,
             ],
             [
                 'attribute' => 'year_debut',
