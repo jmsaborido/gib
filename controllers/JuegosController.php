@@ -54,6 +54,8 @@ class JuegosController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'totalG' => $model->getAllGeneros(),
+            'totalC' => $model->getAllConsolas(),
         ]);
     }
 
