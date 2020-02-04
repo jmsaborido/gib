@@ -13,7 +13,6 @@ $this->title = 'Lista de Juegos';
         'dataProvider' => $dataProvider,
         'filterModel' => $juegosSearch,
         'columns' => [
-
             [
                 'attribute' => 'id',
                 'label' => '#',
@@ -25,14 +24,11 @@ $this->title = 'Lista de Juegos';
             [
                 'attribute' => 'nombre',
                 'headerOptions' => ['style' => 'width:100%']
-
-
             ],
             [
                 'attribute' => 'consola.denom',
                 'label' => 'Consola',
-                'filter' => ArrayHelper::map(\app\models\Consolas::find()->asArray()->all(), 'id', 'denom'),
-
+                'filter' => $juegosSearch->getAllConsolas(),
             ],
             [
                 'attribute' => 'pasado',
@@ -41,7 +37,7 @@ $this->title = 'Lista de Juegos';
             [
                 'attribute' => 'genero.denom',
                 'label' => 'Genero',
-                'filter' => ArrayHelper::map(\app\models\Generos::find()->asArray()->all(), 'id', 'denom'),
+                'filter' => $juegosSearch->getAllGeneros(),
             ],
             [
                 'attribute' => 'year_debut',

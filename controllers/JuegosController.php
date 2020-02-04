@@ -26,9 +26,8 @@ class JuegosController extends Controller
     public function actionIndex()
     {
         $JuegosSearch = new JuegosSearch();
-
+        $model = new Juegos();
         $dataProvider = $JuegosSearch->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'juegosSearch' => $JuegosSearch,

@@ -17,11 +17,11 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'consola_id')->dropDownList(ArrayHelper::map(\app\models\Consolas::find()->asArray()->all(), 'id', 'denom')) ?>
+    <?= $form->field($model, 'consola_id')->dropDownList($model->getAllConsolas())->label('Consola') ?>
 
     <?= $form->field($model, 'pasado')->checkbox() ?>
 
-    <?= $form->field($model, 'genero_id')->dropDownList(ArrayHelper::map(\app\models\Generos::find()->asArray()->all(), 'id', 'denom')) ?>
+    <?= $form->field($model, 'genero_id')->dropDownList($model->getAllGeneros())->label('Genero') ?>
 
     <?= $form->field($model, 'year_debut')->textInput() ?>
 

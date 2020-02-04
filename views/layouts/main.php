@@ -49,7 +49,7 @@ AppAsset::register($this);
                 Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        'Logout (' . Yii::$app->user->identity->nombre . ')',
                         ['class' => 'btn btn-dark nav-link logout']
                     )
                     . Html::endForm()
