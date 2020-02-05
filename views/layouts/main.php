@@ -46,14 +46,20 @@ AppAsset::register($this);
                 ['label' => 'Juegos', 'url' => ['/site/index']],
                 ['label' => 'Generos', 'url' => ['/generos/index']],
                 ['label' => 'Consolas', 'url' => ['/consolas/index']],
-                Yii::$app->user->isGuest ? (['label' => 'Login', 'url' => ['/site/login']]) : ('<li class="nav-item">'
+                Yii::$app->user->isGuest ? [
+                    'label' => 'Usuarios',
+                    'items' => [
+                        (['label' => 'Login', 'url' => ['/site/login']]),
+                        ['label' => 'Registrarse', 'url' => ['usuarios/registrar']],
+                    ],
+                ] : ('<li class="nav-item">'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
                         'Logout (' . Yii::$app->user->identity->nombre . ')',
                         ['class' => 'btn btn-dark nav-link logout']
                     )
                     . Html::endForm()
-                    . '</li>')
+                    . '</li>'),
             ],
         ]);
         NavBar::end();
