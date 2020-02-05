@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
-$this->title = 'Registrar usuario';
+$this->title = 'Modificar usuario';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">

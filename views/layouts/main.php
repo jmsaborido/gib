@@ -46,25 +46,26 @@ AppAsset::register($this);
                 ['label' => 'Juegos', 'url' => ['/site/index']],
                 ['label' => 'Generos', 'url' => ['/generos/index']],
                 ['label' => 'Consolas', 'url' => ['/consolas/index']],
-                Yii::$app->user->isGuest ? [
+                [
                     'label' => 'Usuarios',
-                    'items' => [
-                        (['label' => 'Login', 'url' => ['/site/login']]),
+                    'items' =>
+                    Yii::$app->user->isGuest ? [
+                        ['label' => 'Login', 'url' => ['/site/login']],
                         ['label' => 'Registrarse', 'url' => ['usuarios/registrar']],
+                    ] : [
+                        (Html::beginForm(['/site/logout'], 'post')
+                            . Html::submitButton(
+                                'Logout (' . Yii::$app->user->identity->nombre . ')',
+                                ['class' => 'dropdown-item'],
+                            )
+                            . Html::endForm()),
+                        ['label' => 'Modificar ' . Yii::$app->user->identity->nombre . '', 'url' => ['usuarios/update']],
                     ],
-                ] : ('<li class="nav-item">'
-                    . Html::beginForm(['/site/logout'], 'post')
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->nombre . ')',
-                        ['class' => 'btn btn-dark nav-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'),
-            ],
+                ],
+            ]
         ]);
         NavBar::end();
         ?>
-
         <div class="container">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
