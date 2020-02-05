@@ -47,19 +47,19 @@ AppAsset::register($this);
                 ['label' => 'Generos', 'url' => ['/generos/index']],
                 ['label' => 'Consolas', 'url' => ['/consolas/index']],
                 [
-                    'label' => 'Usuarios',
+                    'label' => Yii::$app->user->isGuest ? 'Usuarios' : Yii::$app->user->identity->nombre,
                     'items' =>
                     Yii::$app->user->isGuest ? [
                         ['label' => 'Login', 'url' => ['/site/login']],
                         ['label' => 'Registrarse', 'url' => ['usuarios/registrar']],
                     ] : [
+                        ['label' => 'Modificar', 'url' => ['usuarios/update']],
                         (Html::beginForm(['/site/logout'], 'post')
                             . Html::submitButton(
-                                'Logout (' . Yii::$app->user->identity->nombre . ')',
+                                'Logout',
                                 ['class' => 'dropdown-item'],
                             )
                             . Html::endForm()),
-                        ['label' => 'Modificar ' . Yii::$app->user->identity->nombre . '', 'url' => ['usuarios/update']],
                     ],
                 ],
             ]
