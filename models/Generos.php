@@ -44,7 +44,7 @@ class Generos extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'denom' => 'Denom',
+            'denom' => 'Nombre',
             'created_at' => 'Created At',
         ];
     }
@@ -75,5 +75,9 @@ class Generos extends \yii\db\ActiveRecord
             ->select(['generos.*', 'COUNT(j.id) AS total'])
             ->joinWith('juegos j', false)
             ->groupBy('generos.id');
+    }
+    public static function lista()
+    {
+        return static::find()->select('denom')->indexBy('id')->column();
     }
 }

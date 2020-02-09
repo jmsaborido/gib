@@ -2,12 +2,16 @@
 
 namespace app\controllers;
 
+use app\models\Consolas;
+use app\models\Generos;
 use app\models\Juegos;
 use app\models\JuegosSearch;
 use Yii;
+use yii\bootstrap4\ActiveForm;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 class JuegosController extends Controller
 {
@@ -30,8 +34,8 @@ class JuegosController extends Controller
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'juegosSearch' => $JuegosSearch,
-            'totalG' => $JuegosSearch->getAllGeneros(),
-            'totalC' => $JuegosSearch->getAllConsolas(),
+            'totalG' => Generos::lista(),
+            'totalC' => Consolas::lista(),
 
         ]);
     }
@@ -48,21 +52,28 @@ class JuegosController extends Controller
     public function actionCreate()
     {
         $model = new Juegos();
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'totalG' => $model->getAllGeneros(),
-            'totalC' => $model->getAllConsolas(),
+            'totalG' => Generos::lista(),
+            'totalC' => Consolas::lista(),
         ]);
     }
 
     public function actionUpdate($id)
     {
         $model = $this->findJuego($id);
-
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
@@ -70,8 +81,8 @@ class JuegosController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'totalG' => $model->getAllGeneros(),
-            'totalC' => $model->getAllConsolas(),
+            'totalG' => Generos::lista(),
+            'totalC' => Consolas::lista(),
         ]);
     }
 

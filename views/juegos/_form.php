@@ -10,7 +10,10 @@ use yii\bootstrap4\ActiveForm;
 
 <div class="juegos-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'id' => 'juegos-form',
+        'enableAjaxValidation' => true,
+    ]); ?>
 
     <?= $form->field($model, 'fecha')->textInput() ?>
 

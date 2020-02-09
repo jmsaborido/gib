@@ -45,7 +45,7 @@ class Consolas extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'denom' => 'Denom',
+            'denom' => 'Nombre',
             'created_at' => 'Añadido en',
         ];
     }
@@ -75,5 +75,9 @@ class Consolas extends \yii\db\ActiveRecord
             ->select(['consolas.*', 'COUNT(j.id) AS total'])
             ->joinWith('juegos j', false)
             ->groupBy('consolas.id');
+    }
+    public static function lista()
+    {
+        return static::find()->select('denom')->indexBy('id')->column();
     }
 }

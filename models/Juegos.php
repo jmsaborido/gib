@@ -82,13 +82,4 @@ class Juegos extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Generos::className(), ['id' => 'genero_id']);
     }
-
-    public function getAllGeneros()
-    {
-        return ArrayHelper::map(Generos::find()->asArray()->all(), 'id', 'denom');
-    }
-    public function getAllConsolas()
-    {
-        return ArrayHelper::map(Consolas::find()->asArray()->all(), 'id', 'denom');
-    }
 }
