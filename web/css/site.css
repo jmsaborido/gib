@@ -1,5 +1,17 @@
-html,
-body {
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/bootstrap";
+.dropdown-item, .nav-item-show, .dropdown-menu {
+    background-color: #343A40;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.dropdown-item:hover, .nav-item-show:hover, .dropdown-menu:hover {
+    background-color: #343A40;
+    color: #fff;
+}
+
+html, body {
     height: 100%;
 }
 
@@ -10,7 +22,7 @@ body {
     padding: 0 0 60px;
 }
 
-.wrap > .container {
+.wrap>.container {
     padding: 70px 15px 20px;
 }
 
@@ -37,6 +49,7 @@ body {
 }
 
 /* add sorting icons to gridview sort links */
+
 a.asc:after, a.desc:after {
     position: relative;
     top: 1px;
@@ -49,11 +62,13 @@ a.asc:after, a.desc:after {
 }
 
 a.asc:after {
-    content: /*"\e113"*/ "\e151";
+    content: /*"\e113"*/
+    "\e151";
 }
 
 a.desc:after {
-    content: /*"\e114"*/ "\e152";
+    content: /*"\e114"*/
+    "\e152";
 }
 
 .sort-numerical a.asc:after {
@@ -91,11 +106,11 @@ a.desc:after {
 }
 
 /* align the logout "link" (button in form) of the navbar */
-.nav li > form > button.logout {
+
+.nav li>form>button.logout {
     border: none;
 }
 
-.nav > li > form > button.logout:focus,
-.nav > li > form > button.logout:hover {
+.nav>li>form>button.logout:focus, .nav>li>form>button.logout:hover {
     background-color: transparent;
 }

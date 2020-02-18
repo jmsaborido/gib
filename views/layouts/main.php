@@ -61,6 +61,7 @@ AppAsset::register($this);
                             )
                             . Html::endForm()),
                     ],
+                    'options' => ['class' => 'navbar-nav'],
                 ],
             ]
         ]);
