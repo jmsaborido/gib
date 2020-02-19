@@ -8,6 +8,7 @@ use app\models\Juegos;
 use app\models\JuegosSearch;
 use Yii;
 use yii\bootstrap4\ActiveForm;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -19,13 +20,33 @@ class JuegosController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::class,
+                // 'only' => ['index'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['create', 'update', 'delete'],
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rules, $action) {
+                            return Yii::$app->user->identity->nombre === 'josesabor';
+                        },
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view'],
+                        'roles' => ['?', '@'],
+                    ],
+                ],
+            ],
         ];
     }
+
 
     public function actionIndex()
     {
@@ -51,58 +72,49 @@ class JuegosController extends Controller
 
     public function actionCreate()
     {
-        if (Yii::$app->user->identity->nombre == 'josesabor') {
-            $model = new Juegos();
-            if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                return ActiveForm::validate($model);
-            }
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['index']);
-            }
-
-            return $this->render('create', [
-                'model' => $model,
-                'totalG' => Generos::lista(),
-                'totalC' => Consolas::lista(),
-            ]);
-        } else {
+        $model = new Juegos();
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+            'totalG' => Generos::lista(),
+            'totalC' => Consolas::lista(),
+        ]);
     }
 
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->identity->nombre == 'josesabor') {
 
-            $model = $this->findJuego($id);
-            if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                return ActiveForm::validate($model);
-            }
+        $model = $this->findJuego($id);
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['index']);
-            }
-
-            return $this->render('update', [
-                'model' => $model,
-                'totalG' => Generos::lista(),
-                'totalC' => Consolas::lista(),
-            ]);
-        } else {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+            'totalG' => Generos::lista(),
+            'totalC' => Consolas::lista(),
+        ]);
     }
 
     public function actionDelete($id)
     {
-        Yii::debug(Yii::$app->user->identity->nombre);
-        if (Yii::$app->user->identity->nombre == 'josesabor') {
-            $model = $this->findJuego($id);
-            $model->delete();
-            Yii::$app->session->setFlash('success', 'Fila borrada con éxito.');
-        }
+
+        $model = $this->findJuego($id);
+        $model->delete();
+        Yii::$app->session->setFlash('success', 'Fila borrada con éxito.');
+
         return $this->redirect(['index']);
     }
 
