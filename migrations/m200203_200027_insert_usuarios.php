@@ -13,8 +13,8 @@ class m200203_200027_insert_usuarios extends Migration
     public function safeUp()
     {
         $this->insert('usuarios', [
-            'nombre' => 'pepe',
-            'password' => Yii::$app->security->generatePasswordHash('pepe'),
+            'nombre' => 'josesabor',
+            'password' => '$2y$13$IT4m7G6xRaN6M6AXWTfiZ.1m3/sV5ljpD64VWCPjX0vaOfGOaZvhG',
             'auth_key' => Yii::$app->security->generateRandomString(60),
             'telefono' => '123123123',
             'poblacion' => 'Sanlúcar',
@@ -26,7 +26,7 @@ class m200203_200027_insert_usuarios extends Migration
      */
     public function safeDown()
     {
-        $this->delete('usuarios', ['nombre' => 'pepe']);
+        $this->delete('usuarios', ['nombre' => 'josesabor']);
     }
 
     /*

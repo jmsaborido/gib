@@ -32,6 +32,7 @@ $this->title = 'Lista de Juegos';
             ],
             [
                 'attribute' => 'pasado',
+                'label' => 'Completado anteriormente',
                 'format' => 'boolean',
             ],
             [
@@ -42,17 +43,29 @@ $this->title = 'Lista de Juegos';
             [
                 'attribute' => 'year_debut',
             ],
-            ['class' => ActionColumn::class],
+            [
+                'class' => ActionColumn::class,
+                'visibleButtons' =>
+                [
+                    'update' => !Yii::$app->user->isGuest ? Yii::$app->user->identity->nombre == "josesabor" : false,
+                    'delete' => !Yii::$app->user->isGuest ? Yii::$app->user->identity->nombre == "josesabor" : false,
+                ]
+            ],
         ],
     ]) ?>
 
     <div class="row">
         <div class="col">
-            <?= Html::a(
-                'Insertar',
-                ['juegos/create'],
-                ['class' => 'btn btn-sm btn-primary']
-            ) ?>
+            <?=
+                !Yii::$app->user->isGuest ?
+                    Yii::$app->user->identity->nombre == 'josesabor' ?
+                    Html::a(
+                        'Insertar',
+                        ['juegos/create'],
+                        ['class' => 'btn btn-sm btn-primary']
+                    )
+                    : "" : ""
+            ?>
         </div>
     </div>
 </div>
