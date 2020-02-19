@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Consolas;
 use app\models\ConsolasSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -24,6 +25,25 @@ class ConsolasController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::class,
+                // 'only' => ['index'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['create', 'update', 'delete'],
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rules, $action) {
+                            return Yii::$app->user->identity->nombre === 'josesabor';
+                        },
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view'],
+                        'roles' => ['?', '@'],
+                    ],
                 ],
             ],
         ];

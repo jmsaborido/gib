@@ -6,7 +6,6 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Juegos;
 
-use function Psy\debug;
 
 /**
  * JuegosSearch represents the model behind the search form of `app\models\Juegos`.
@@ -68,8 +67,6 @@ class JuegosSearch extends Juegos
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'fecha' => $this->fecha,
             'consola_id' => $this->getAttribute('consola.denom'),
             'pasado' => $this->pasado,
             'genero_id' =>  $this->getAttribute('genero.denom'),
